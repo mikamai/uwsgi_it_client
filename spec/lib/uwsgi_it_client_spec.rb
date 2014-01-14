@@ -38,5 +38,10 @@ describe UwsgiItClient do
       expect(UwsgiItClient::Response).to receive :new
       subject.me
     end
+
+    it 'returns the response object' do
+      UwsgiItClient::Response.stub get: {}
+      expect(subject.me).to be_a UwsgiItClient::Response
+    end
   end
 end
