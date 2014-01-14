@@ -23,10 +23,6 @@ describe UwsgiItClient do
       expect(subject.password).to eq password
       expect(subject.username).to eq username
     end
-
-    it 'sets the auth_data hash' do
-      expect(subject.auth_data).to eq username: subject.username, password: subject.password
-    end
   end
 
   { me: 'me', containers: 'me/containers' }.each do |api_name, url|

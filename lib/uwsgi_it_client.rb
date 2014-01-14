@@ -33,6 +33,8 @@ class UwsgiItClient
     end
   end
 
+  private
+
   def auth_data
     {username: username, password: password}
   end
