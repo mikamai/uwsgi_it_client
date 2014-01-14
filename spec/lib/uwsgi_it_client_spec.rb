@@ -54,7 +54,4 @@ describe UwsgiItClient do
       expect(subject.container_url('3001')).to eq "#{url}/containers/3001"
     end
   end
-
-  it { expect(subject).to respond_to :company= }
-  it { expect(subject).to respond_to :password= }
 end
