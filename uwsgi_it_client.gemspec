@@ -6,10 +6,10 @@ require 'uwsgi_it_client/version'
 Gem::Specification.new do |spec|
   spec.name          = "uwsgi_it_client"
   spec.version       = UwsgiItClient::VERSION
-  spec.authors       = ["andrea longhi"]
-  spec.email         = ["andrea@spaghetticode.it"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.authors       = ["andrea longhi", "nicola racco"]
+  spec.email         = ["andrea@mikamai.com", "nicola@mikamai.com"]
+  spec.description   = %q{ruby client for uwsgi.it api}
+  spec.summary       = %q{ruby client for uwsgi.it api}
   spec.homepage      = ""
   spec.license       = "MIT"
 
