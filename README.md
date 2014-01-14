@@ -1,6 +1,6 @@
 # UwsgiItClient
 
-TODO: Write a gem description
+Ruby client for uwsgi.it API.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+WIP.
 
 ## Contributing
 
