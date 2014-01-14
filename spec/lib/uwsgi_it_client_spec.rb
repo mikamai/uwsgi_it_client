@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe UwsgiItClient do
-  let(:username) { double }
-  let(:password) { double }
-  let(:url)      { double }
+  let(:username) { 'username' }
+  let(:password) { 'password' }
+  let(:url)      { 'https://domain.com/path/to/api' }
 
   subject { UwsgiItClient.new username: username, password: password, url: url }
 
@@ -29,13 +29,13 @@ describe UwsgiItClient do
     end
   end
 
-  { 'me' => 'me', 'containers' => 'me/containers' }.each do |api_name, url|
+  { me: 'me', containers: 'me/containers' }.each do |api_name, url|
     context "when accessing #{api_name} API" do
       it 'sets correctly the url' do
         expect(subject.send "#{api_name}_url").to eq "#{subject.url}/#{url}"
       end
 
-      it 'delegates to the response' do
+      it 'creates a new response object' do
         expect(UwsgiItClient::Response).to receive :new
         subject.send api_name
       end
@@ -43,6 +43,12 @@ describe UwsgiItClient do
       it 'returns the response object' do
         UwsgiItClient::Response.stub get: {}
         expect(subject.send api_name).to be_a UwsgiItClient::Response
+      end
+
+      it 'memoizes the response' do
+        pending
+        expect(UwsgiItClient::Response).to receive :new
+        2.times { subject.send api_name }
       end
     end
   end
