@@ -28,4 +28,10 @@ describe UwsgiItClient do
       subject.auth_data.should == { username: subject.username, password: subject.password}
     end
   end
+
+  context 'when accessing me' do
+    it 'sets the url' do
+      subject.me_url.should == "#{subject.url}/me"
+    end
+  end
 end

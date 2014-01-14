@@ -9,6 +9,10 @@ class UwsgiItClient
     @password = opts.fetch :password
   end
 
+  def me_url
+    File.join @url, 'me'
+  end
+
   def auth_data
     {username: username, password: password}
   end
