@@ -27,15 +27,15 @@ class UwsgiItClient
     define_method api_name do
       ivar_name = "@#{api_name}"
       instance_variable_get ivar_name or begin
-        response = Response.new send(api_url), auth_data
-        instance_variable_set ivar_name, response
+        result = Getter.new send(api_url), auth_data
+        instance_variable_set ivar_name, result
       end
     end
   end
 
+
   def company=(value)
-    me.data['company'] = value
-    Poster.new me_url, me.data, auth_data
+    Poster.new me_url, {company: value}, auth_data
   end
 
   private
@@ -45,5 +45,5 @@ class UwsgiItClient
   end
 end
 
-require_relative 'uwsgi_it_client/response'
+require_relative 'uwsgi_it_client/getter'
 require_relative 'uwsgi_it_client/poster'

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 class UwsgiItClient
-  describe Response do
+  describe Getter do
     it 'requires url and auth data' do
-      expect { Response.new }.to raise_error ArgumentError
+      expect { Getter.new }.to raise_error ArgumentError
     end
   end
 end

@@ -31,19 +31,19 @@ describe UwsgiItClient do
         expect(subject.send "#{api_name}_url").to eq "#{subject.url}/#{url}/"
       end
 
-      it 'creates a new response object' do
-        expect(UwsgiItClient::Response).to receive :new
+      it 'creates a new getter object' do
+        expect(UwsgiItClient::Getter).to receive :new
         subject.send api_name
       end
 
-      it 'returns the response object' do
-        UwsgiItClient::Response.stub get: {}
-        expect(subject.send api_name).to be_a UwsgiItClient::Response
+      it 'returns the getter object' do
+        UwsgiItClient::Getter.stub get: {}
+        expect(subject.send api_name).to be_a UwsgiItClient::Getter
       end
 
-      it 'memoizes the response' do
+      it 'memoizes the result' do
         pending
-        expect(UwsgiItClient::Response).to receive :new
+        expect(UwsgiItClient::Getter).to receive :new
         2.times { subject.send api_name }
       end
     end

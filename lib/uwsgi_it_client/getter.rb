@@ -1,12 +1,12 @@
 class UwsgiItClient
-  class Response
+  class Getter
     include HTTParty
     format :json
 
-    attr_reader :data
+    attr_reader :result
 
     def initialize(url, auth_data)
-      @data = get url, basic_auth: auth_data
+      @result = get url, basic_auth: auth_data
     end
 
     private
