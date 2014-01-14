@@ -1,4 +1,5 @@
 require 'uwsgi_it_client/version'
+require 'httparty'
 
 class UwsgiItClient
   attr_reader :username, :password, :url
@@ -9,6 +10,10 @@ class UwsgiItClient
     @password = opts.fetch :password
   end
 
+  def me
+    Response.new(me_url, auth_data)
+  end
+
   def me_url
     File.join @url, 'me'
   end
@@ -17,3 +22,5 @@ class UwsgiItClient
     {username: username, password: password}
   end
 end
+
+require_relative 'uwsgi_it_client/response'

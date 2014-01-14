@@ -29,9 +29,14 @@ describe UwsgiItClient do
     end
   end
 
-  context 'when accessing me' do
-    it 'sets the url' do
+  context 'when accessing me API' do
+    it 'sets correctly the url' do
       subject.me_url.should == "#{subject.url}/me"
+    end
+
+    it 'delegates to the response' do
+      UwsgiItClient::Response.should_receive(:new)
+      subject.me
     end
   end
 end
