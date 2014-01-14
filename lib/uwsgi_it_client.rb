@@ -18,6 +18,14 @@ class UwsgiItClient
     File.join url, 'me'
   end
 
+  def containers
+    Response.new(containers_url, auth_data)
+  end
+
+  def containers_url
+    File.join url, 'me/containers'
+  end
+
   def auth_data
     {username: username, password: password}
   end

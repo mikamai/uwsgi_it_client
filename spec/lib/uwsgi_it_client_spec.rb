@@ -29,19 +29,21 @@ describe UwsgiItClient do
     end
   end
 
-  context 'when accessing me API' do
-    it 'sets correctly the url' do
-      expect(subject.me_url).to eq "#{subject.url}/me"
-    end
+  { 'me' => 'me', 'containers' => 'me/containers' }.each do |api_name, url|
+    context "when accessing #{api_name} API" do
+      it 'sets correctly the url' do
+        expect(subject.send "#{api_name}_url").to eq "#{subject.url}/#{url}"
+      end
 
-    it 'delegates to the response' do
-      expect(UwsgiItClient::Response).to receive :new
-      subject.me
-    end
+      it 'delegates to the response' do
+        expect(UwsgiItClient::Response).to receive :new
+        subject.send api_name
+      end
 
-    it 'returns the response object' do
-      UwsgiItClient::Response.stub get: {}
-      expect(subject.me).to be_a UwsgiItClient::Response
+      it 'returns the response object' do
+        UwsgiItClient::Response.stub get: {}
+        expect(subject.send api_name).to be_a UwsgiItClient::Response
+      end
     end
   end
 end
