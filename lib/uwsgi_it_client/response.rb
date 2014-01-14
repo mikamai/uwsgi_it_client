@@ -14,9 +14,5 @@ class UwsgiItClient
     def get(*args)
       self.class.get *args
     end
-
-    def post(*args)
-      self.class.get *args
-    end
   end
 end
