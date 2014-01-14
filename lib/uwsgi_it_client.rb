@@ -1,6 +1,6 @@
 require "uwsgi_it_client/version"
 
-module UwsgiItClient
+class UwsgiItClient
   attr_reader :username, :password, :domain
 
   def initialize(username, password, domain)
