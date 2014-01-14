@@ -15,7 +15,7 @@ class UwsgiItClient
   end
 
   def me_url
-    File.join @url, 'me'
+    File.join url, 'me'
   end
 
   def auth_data
