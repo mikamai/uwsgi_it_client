@@ -2,7 +2,13 @@ require 'uwsgi_it_client/version'
 require 'httparty'
 
 class UwsgiItClient
+  API = {
+    me: 'me',
+    containers: 'me/containers'
+  }
+
   attr_reader :username, :password, :url
+
 
   def initialize(opts)
     @url      = opts.fetch :url
@@ -10,20 +16,21 @@ class UwsgiItClient
     @password = opts.fetch :password
   end
 
-  def me
-    @me ||= Response.new(me_url, auth_data)
-  end
 
-  def containers
-    @containers ||= Response.new(containers_url, auth_data)
-  end
+  API.each do |api_name, path|
+    api_url ="#{api_name}_url"
 
-  def me_url
-    File.join url, 'me'
-  end
+    define_method api_url do
+      File.join url, path
+    end
 
-  def containers_url
-    File.join url, 'me/containers'
+    define_method api_name do
+      ivar_name = "@#{api_name}"
+      instance_variable_get ivar_name or begin
+        response = Response.new send(api_url), auth_data
+        instance_variable_set ivar_name, response
+      end
+    end
   end
 
   def auth_data
