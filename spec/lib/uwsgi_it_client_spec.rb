@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe UwsgiItClient do
-  let(:username)  { double }
-  let(:password)  { double }
-  let(:domain)    { double }
+  let(:username) { double }
+  let(:password) { double }
+  let(:url)      { double }
 
-  subject { UwsgiItClient.new username: username, password: password, domain: domain }
+  subject { UwsgiItClient.new username: username, password: password, url: url }
 
   context 'when the option param is missing' do
     it { expect { UwsgiItClient.new }.to raise_error ArgumentError }
@@ -19,7 +19,7 @@ describe UwsgiItClient do
 
   context 'when passing valid options' do
     it 'sets username, password, domain attributes as expected' do
-      subject.domain.should   == domain
+      subject.url.should      == url
       subject.password.should == password
       subject.username.should == username
     end

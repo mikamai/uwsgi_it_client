@@ -1,10 +1,10 @@
 require "uwsgi_it_client/version"
 
 class UwsgiItClient
-  attr_reader :username, :password, :domain
+  attr_reader :username, :password, :url
 
   def initialize(opts)
-    @domain   = opts.fetch :domain
+    @url      = opts.fetch :url
     @username = opts.fetch :username
     @password = opts.fetch :password
   end
