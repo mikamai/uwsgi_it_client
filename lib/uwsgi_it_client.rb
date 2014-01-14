@@ -1,4 +1,4 @@
-require "uwsgi_it_client/version"
+require 'uwsgi_it_client/version'
 
 class UwsgiItClient
   attr_reader :username, :password, :url
@@ -7,5 +7,9 @@ class UwsgiItClient
     @url      = opts.fetch :url
     @username = opts.fetch :username
     @password = opts.fetch :password
+  end
+
+  def auth_data
+    {username: username, password: password}
   end
 end

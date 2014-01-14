@@ -23,5 +23,9 @@ describe UwsgiItClient do
       subject.password.should == password
       subject.username.should == username
     end
+
+    it 'sets the auth_data hash' do
+      subject.auth_data.should == { username: subject.username, password: subject.password}
+    end
   end
 end
