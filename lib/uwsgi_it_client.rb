@@ -5,7 +5,8 @@ class UwsgiItClient
   API = {
     me:         'me/',
     containers: 'me/containers/',
-    container:  'containers'
+    container:  'containers',
+    distros:    'distros/',
   }
 
   attr_reader :username, :password, :url

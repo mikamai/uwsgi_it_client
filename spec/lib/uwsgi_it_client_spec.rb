@@ -25,7 +25,7 @@ describe UwsgiItClient do
     end
   end
 
-  { me: 'me', containers: 'me/containers' }.each do |api_name, url|
+  { me: 'me', containers: 'me/containers', distros: 'distros' }.each do |api_name, url|
     context "when accessing #{api_name} API" do
       it 'sets correctly the url' do
         expect(subject.send "#{api_name}_url").to eq "#{subject.url}/#{url}/"
