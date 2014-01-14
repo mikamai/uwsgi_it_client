@@ -21,7 +21,7 @@ class UwsgiItClient
     api_url ="#{api_name}_url"
 
     define_method api_url do
-      File.join url, path
+      File.join url, path, '/'
     end
 
     define_method api_name do
