@@ -1,5 +1,9 @@
 require "uwsgi_it_client/version"
 
 module UwsgiItClient
-  # Your code goes here...
+  attr_reader :username, :password, :domain
+
+  def initialize(username, password, domain)
+    @username, @password, @domain = username, password, domain
+  end
 end

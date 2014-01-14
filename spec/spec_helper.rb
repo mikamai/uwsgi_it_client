@@ -1,0 +1,1 @@
+require_relative '../lib/uwsgi_it_client'
