@@ -38,6 +38,10 @@ class UwsgiItClient
     Poster.new me_url, {company: value}, auth_data
   end
 
+  def password=(password)
+    Poster.new me_url, {password: password}, auth_data
+  end
+
   private
 
   def auth_data

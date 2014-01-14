@@ -48,4 +48,7 @@ describe UwsgiItClient do
       end
     end
   end
+
+  it { expect(subject).to respond_to :company= }
+  it { expect(subject).to respond_to :password= }
 end
