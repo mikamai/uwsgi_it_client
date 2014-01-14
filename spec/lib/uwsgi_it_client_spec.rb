@@ -19,23 +19,23 @@ describe UwsgiItClient do
 
   context 'when passing valid options' do
     it 'sets username, password, domain attributes as expected' do
-      subject.url.should      == url
-      subject.password.should == password
-      subject.username.should == username
+      expect(subject.url).to      eq url
+      expect(subject.password).to eq password
+      expect(subject.username).to eq username
     end
 
     it 'sets the auth_data hash' do
-      subject.auth_data.should == { username: subject.username, password: subject.password}
+      expect(subject.auth_data).to eq username: subject.username, password: subject.password
     end
   end
 
   context 'when accessing me API' do
     it 'sets correctly the url' do
-      subject.me_url.should == "#{subject.url}/me"
+      expect(subject.me_url).to eq "#{subject.url}/me"
     end
 
     it 'delegates to the response' do
-      UwsgiItClient::Response.should_receive(:new)
+      expect(UwsgiItClient::Response).to receive :new
       subject.me
     end
   end
