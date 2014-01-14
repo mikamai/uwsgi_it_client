@@ -33,6 +33,11 @@ class UwsgiItClient
     end
   end
 
+  def company=(value)
+    me.data['company'] = value
+    Poster.new me_url, me.data, auth_data
+  end
+
   private
 
   def auth_data
@@ -41,3 +46,4 @@ class UwsgiItClient
 end
 
 require_relative 'uwsgi_it_client/response'
+require_relative 'uwsgi_it_client/poster'
