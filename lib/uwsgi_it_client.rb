@@ -25,12 +25,12 @@ class UwsgiItClient
     end
 
     define_method api_name do
-      ivar_name = "@#{api_name}"
-      instance_variable_get ivar_name or begin
-        result = Getter.new send(api_url), auth_data
-        instance_variable_set ivar_name, result
-      end
+      Getter.new send(api_url), auth_data
     end
+  end
+
+  def container_url(c_id)
+    File.join url, 'containers', c_id
   end
 
 
