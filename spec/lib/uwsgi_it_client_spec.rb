@@ -49,7 +49,7 @@ describe UwsgiItClient do
     let(:auth_data) { subject.send :auth_data }
 
     it 'creates a Poster instance' do
-      Poster.should_receive :new
+      UwsgiItClient::Poster.should_receive :new
       subject.post api_name, payload, auth_data
     end
   end
