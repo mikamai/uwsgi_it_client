@@ -43,6 +43,22 @@ describe UwsgiItClient do
     end
   end
 
+  context 'when POSTing to API' do
+    let(:payload)   { {some: :payload} }
+    let(:api_name)  { :domains }
+    let(:auth_data) { subject.send :auth_data }
+
+    it 'creates a Poster instance' do
+      Poster.should_receive :new
+      subject.post api_name, payload, auth_data
+    end
+  end
+
+  context 'when DELETEing to API' do
+    it 'creates a Deleter instance' do
+    end
+  end
+
   describe '#container_url' do
     it 'returns the expected url' do
       expect(subject.container_url('3001')).to eq "#{url}/containers/3001"
