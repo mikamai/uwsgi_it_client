@@ -45,5 +45,6 @@ class UwsgiItClient
   end
 end
 
-require_relative 'uwsgi_it_client/getter'
-require_relative 'uwsgi_it_client/poster'
+Dir.entries('lib/uwsgi_it_client').each do |file|
+  require_relative "uwsgi_it_client/#{file}" if file =~ /\.rb$/
+end
