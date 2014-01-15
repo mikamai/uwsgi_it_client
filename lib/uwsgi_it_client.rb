@@ -1,5 +1,6 @@
 require 'uwsgi_it_client/version'
 require 'httparty'
+require 'active_support/core_ext/module/delegation'
 
 class UwsgiItClient
   API = {
