@@ -1,15 +1,17 @@
-class Poster
-  include HTTParty
+class UwsgiItClient
+  class Poster
+    include HTTParty
 
-  attr_reader :result
+    attr_reader :result
 
-  def initialize(url, body, auth_data)
-    @result = post url, body: body.to_json, basic_auth: auth_data
-  end
+    def initialize(url, body, auth_data)
+      @result = post url, body: body.to_json, basic_auth: auth_data
+    end
 
-  private
+    private
 
-  def post(*args)
-    self.class.post *args
+    def post(*args)
+      self.class.post *args
+    end
   end
 end
