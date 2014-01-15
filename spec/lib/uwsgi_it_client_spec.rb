@@ -25,7 +25,7 @@ describe UwsgiItClient do
     end
   end
 
-  { me: 'me', containers: 'me/containers', distros: 'distros' }.each do |api_name, url|
+  { me: 'me', containers: 'me/containers', distros: 'distros', domains: 'domains' }.each do |api_name, url|
     context "when accessing #{api_name} API" do
       it 'sets correctly the url' do
         expect(subject.send "#{api_name}_url").to eq "#{subject.url}/#{url}/"
@@ -39,12 +39,6 @@ describe UwsgiItClient do
       it 'returns the getter object' do
         UwsgiItClient::Getter.stub get: {}
         expect(subject.send api_name).to be_a UwsgiItClient::Getter
-      end
-
-      it 'memoizes the result' do
-        pending
-        expect(UwsgiItClient::Getter).to receive :new
-        2.times { subject.send api_name }
       end
     end
   end

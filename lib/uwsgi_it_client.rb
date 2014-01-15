@@ -8,6 +8,7 @@ class UwsgiItClient
     containers: 'me/containers/',
     container:  'containers',
     distros:    'distros/',
+    domains:    'domains/',
   }
 
   attr_reader :username, :password, :url
