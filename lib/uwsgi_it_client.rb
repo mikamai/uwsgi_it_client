@@ -38,6 +38,10 @@ class UwsgiItClient
     Poster.new send("#{api_name}_url", opts[:id]), payload, auth_data
   end
 
+  def delete(api_name, payload, opts={})
+    Deleter.new send("#{api_name}_url", opts[:id]), payload, auth_data
+  end
+
   private
 
   def auth_data
