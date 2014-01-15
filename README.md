@@ -76,7 +76,7 @@ curl https://kratos:deimos17@foobar.com/api/containers/30009
 ```
 
 ```ruby
-client.container '30009'
+client.container 30009
 ```
 
 
@@ -98,7 +98,7 @@ curl -X POST -d '{"distro": 2}' https://kratos:deimos17@foobar.com/api/container
 ```
 
 ```ruby
-client.post :container, {distro: 2}, id: '30009'
+client.post :container, {distro: 2}, id: 30009
 ```
 
 
@@ -109,7 +109,7 @@ curl -X POST -d '{"ssh_keys": ["ssh-rsa ........."]}' https://kratos:deimos17@fo
 ```
 
 ```ruby
-client.post :container, {ssh_keys: ["ssh-rsa..."]}, id: '30009'
+client.post :container, {ssh_keys: ["ssh-rsa..."]}, id: 30009
 ```
 
 
@@ -142,6 +142,30 @@ curl -X DELETE -d '{"name":"mynewdomain.org"}' https://kratos:deimos17@foobar.co
 ```ruby
 client.delete :domains, {name: 'mynewdomain.org'}
 ```
+
+
+## High level syntax
+
+Post and delete calls are by default low level, if you want the nicer syntax you need to extend your client with `ClientHelpers` module:
+
+```ruby
+client.extend UwsgiItClient::ClientHelpers
+
+client.company = 'Umbrella Corp.'
+
+client.password = 'secret'
+
+client.set_distro 3, 30009
+
+client.add_key 'ssh-rsa...', 30009
+
+client.add_keys ['ssh-rsa...', '...'], 30009
+
+client.add_domain 'mynewdomain.org'
+
+client.delete_domain 'mynewdomain.org'
+```
+
 
 ## Contributing
 
