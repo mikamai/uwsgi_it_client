@@ -25,6 +25,7 @@ class UwsgiItClient
     api_url ="#{api_name}_url"
 
     define_method api_url do |id=nil|
+      id = id && id.to_s
       File.join [url, path, id].compact
     end
 

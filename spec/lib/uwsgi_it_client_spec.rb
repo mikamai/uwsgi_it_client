@@ -43,6 +43,20 @@ describe UwsgiItClient do
     end
   end
 
+  context 'when adding an id to the url' do
+    context 'when the id is present' do
+      it 'converts the id to string if necessary' do
+        subject.container_url(3001).should eq "#{subject.url}/containers/3001"
+      end
+    end
+
+    context 'when id is nil' do
+      it 'removes the id param entirely' do
+        subject.container_url(nil).should eq "#{subject.url}/containers"
+      end
+    end
+  end
+
   context 'when POSTing to API' do
     let(:payload)   { {some: :payload} }
     let(:api_name)  { :domains }
