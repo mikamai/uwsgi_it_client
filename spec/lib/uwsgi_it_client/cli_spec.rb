@@ -95,4 +95,19 @@ describe UwsgiItClient::CLI do
       end
     end
   end
+
+  context 'domains' do
+    let(:action_name) { :domains }
+
+    it_behaves_like 'requires authentication'
+
+    context 'when all arguments are filled' do
+      it_behaves_like 'invokes api action' do
+        let(:response) do
+          [{ id: 1, name: 'foobar.com' }]
+        end
+        let(:match_regexp) { /\[.*\{.*id.*name.*\}.*\]/m }
+      end
+    end
+  end
 end
