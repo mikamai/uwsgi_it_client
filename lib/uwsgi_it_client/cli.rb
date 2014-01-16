@@ -55,7 +55,7 @@ class UwsgiItClient
       end
     end
 
-    desc :containers, "Retrieves distributions list"
+    desc :distros, "Retrieves distributions list"
     method_option :username,  aliases: '-u', type: :string, required: true,
                               desc: 'uwsgi.it username', banner: 'kratos'
     method_option :password,  aliases: '-p', type: :string, required: true,
@@ -75,7 +75,7 @@ class UwsgiItClient
       end
     end
 
-    desc :containers, "Retrieves paired domains list"
+    desc :domains, "Retrieves paired domains list"
     method_option :username,  aliases: '-u', type: :string, required: true,
                               desc: 'uwsgi.it username', banner: 'kratos'
     method_option :password,  aliases: '-p', type: :string, required: true,
