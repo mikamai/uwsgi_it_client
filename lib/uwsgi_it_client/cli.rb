@@ -10,7 +10,7 @@ class UwsgiItClient
         if object.is_a? String
           puts object
         else
-          ap object, index: false, indent: -2
+          ap object, indent: -2
         end
       end
     end
@@ -32,6 +32,26 @@ class UwsgiItClient
         print status: result.response.code.to_i, description: result.response.message
       else
         print result.parsed_response.symbolize_keys
+      end
+    end
+
+    desc :containers, "Retrieves containers list"
+    method_option :username,  aliases: '-u', type: :string, required: true,
+                              desc: 'uwsgi.it username', banner: 'kratos'
+    method_option :password,  aliases: '-p', type: :string, required: true,
+                              desc: 'uwsgi.it password', banner: 'deimos'
+    method_option :api,       aliases: '-a', type: :string, required: true,
+                              desc: 'uwsgi.it api base url', banner: 'https://foobar.com/api'
+    def containers
+      client = UwsgiItClient.new  username: options[:username],
+                                  password: options[:password],
+                                  url:      options[:api]
+      result = client.containers
+      if result.response.code.to_i != 200
+        print "Cannot retrieve containers list because the server responded with:"
+        print status: result.response.code.to_i, description: result.response.message
+      else
+        print result.parsed_response.map(&:symbolize_keys)
       end
     end
   end
