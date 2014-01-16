@@ -80,4 +80,19 @@ describe UwsgiItClient::CLI do
       end
     end
   end
+
+  context 'distros' do
+    let(:action_name) { :distros }
+
+    it_behaves_like 'requires authentication'
+
+    context 'when all arguments are filled' do
+      it_behaves_like 'invokes api action' do
+        let(:response) do
+          [{ id: 1, name: 'Sample Linux Distro' }]
+        end
+        let(:match_regexp) { /\[.*\{.*id.*name.*\}.*\]/m }
+      end
+    end
+  end
 end
