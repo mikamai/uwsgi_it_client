@@ -1,7 +1,9 @@
-require 'uwsgi_it_client'
 require 'thor'
 require 'ap'
 require 'active_support/core_ext/hash/keys'
+require 'active_support/core_ext/object/try'
+
+require 'uwsgi_it_client'
 
 class UwsgiItClient
   class CLI < Thor
@@ -11,6 +13,20 @@ class UwsgiItClient
           puts object
         else
           ap object, indent: -2
+        end
+      end
+
+      def manage_action_result result
+        if result.response.code.to_i != 200
+          print "Cannot execute the desired action. The server responded with:"
+          print status: result.response.code.to_i, description: result.response.message
+        else
+          response = result.parsed_response.try(:symbolize_keys) || result.parsed_response.map(&:symbolize_keys)
+          if block_given?
+            yield response
+          else
+            print response
+          end
         end
       end
     end
@@ -26,33 +42,22 @@ class UwsgiItClient
       client = UwsgiItClient.new  username: options[:username],
                                   password: options[:password],
                                   url:      options[:api]
-      result = client.me
-      if result.response.code.to_i != 200
-        print "Cannot retrieve user profile info because the server responded with:"
-        print status: result.response.code.to_i, description: result.response.message
-      else
-        print result.parsed_response.symbolize_keys
-      end
+      manage_action_result client.me
     end
 
-    desc :containers, "Retrieves containers list"
+    desc 'containers [ID]', "Retrieves containers list (if no ID is provided) or show container info"
     method_option :username,  aliases: '-u', type: :string, required: true,
                               desc: 'uwsgi.it username', banner: 'kratos'
     method_option :password,  aliases: '-p', type: :string, required: true,
                               desc: 'uwsgi.it password', banner: 'deimos'
     method_option :api,       aliases: '-a', type: :string, required: true,
                               desc: 'uwsgi.it api base url', banner: 'https://foobar.com/api'
-    def containers
+    def containers id = nil
       client = UwsgiItClient.new  username: options[:username],
                                   password: options[:password],
                                   url:      options[:api]
-      result = client.containers
-      if result.response.code.to_i != 200
-        print "Cannot retrieve containers list because the server responded with:"
-        print status: result.response.code.to_i, description: result.response.message
-      else
-        print result.parsed_response.map(&:symbolize_keys)
-      end
+      result = id && client.container(id) || client.containers
+      manage_action_result result
     end
 
     desc :distros, "Retrieves distributions list"
@@ -66,13 +71,7 @@ class UwsgiItClient
       client = UwsgiItClient.new  username: options[:username],
                                   password: options[:password],
                                   url:      options[:api]
-      result = client.distros
-      if result.response.code.to_i != 200
-        print "Cannot retrieve distributions list because the server responded with:"
-        print status: result.response.code.to_i, description: result.response.message
-      else
-        print result.parsed_response.map(&:symbolize_keys)
-      end
+      manage_action_result client.distros
     end
 
     desc :domains, "Retrieves paired domains list"
@@ -86,13 +85,7 @@ class UwsgiItClient
       client = UwsgiItClient.new  username: options[:username],
                                   password: options[:password],
                                   url:      options[:api]
-      result = client.domains
-      if result.response.code.to_i != 200
-        print "Cannot retrieve paired domains list because the server responded with:"
-        print status: result.response.code.to_i, description: result.response.message
-      else
-        print result.parsed_response.map(&:symbolize_keys)
-      end
+      manage_action_result client.domains
     end
   end
 end
