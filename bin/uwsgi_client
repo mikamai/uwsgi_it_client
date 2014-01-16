@@ -1,0 +1,5 @@
+#! /usr/bin/env ruby
+
+require 'uwsgi_it_client/cli'
+
+UwsgiItClient::CLI.start
