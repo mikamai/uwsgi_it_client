@@ -25,7 +25,7 @@ To use the API, create a `UwsgiItClient` instance with your account data:
 client = UwsgiItClient.new(
   username: 'kratos',
   password: 'deimos',
-  url:      'https://foobar.com/api/me/'
+  url:      'https://foobar.com/api/'
 )
 ```
 
