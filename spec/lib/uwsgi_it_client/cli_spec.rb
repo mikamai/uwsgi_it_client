@@ -6,22 +6,31 @@ describe UwsgiItClient::CLI do
   subject { UwsgiItClient::CLI }
 
   shared_examples 'requires authentication' do |action_name|
-    it 'requires username' do
-      expect { exec action_name }.to raise_error Thor::RequiredArgumentMissingError, /--username/
+    let(:params) { ['-u=asd', '--password=asd', '-a=http://test.dev/api'] }
+
+    context 'when username is missing' do
+      before { params.delete '-u=asd' }
+      it 'requires username' do
+        expect { exec action_name, params }.to raise_error /--username/
+      end
     end
 
-    it 'requires password' do
-      expect { exec action_name }.to raise_error Thor::RequiredArgumentMissingError, /--password/
+    context 'when password is missing' do
+      before { params.delete '--password=asd' }
+      it 'requires password' do
+        expect { exec action_name, params }.to raise_error /--password/
+      end
     end
 
-    it 'requires api url' do
-      expect { exec action_name }.to raise_error Thor::RequiredArgumentMissingError, /--api/
+    context 'when api url is misssing' do
+      before { params.delete '-a=http://test.dev/api' }
+      it 'requires api url' do
+        expect { exec action_name, params }.to raise_error /--api/
+      end
     end
 
     it 'is executed if all required arguments are present' do
-      expect {
-        exec action_name, ['-u=asd', '--password=asd', '-a=http://test.dev/api']
-      }.to_not raise_error
+      expect { exec action_name, params }.to_not raise_error
     end
   end
 
@@ -103,6 +112,43 @@ describe UwsgiItClient::CLI do
         [{ id: 1, name: 'foobar.com' }]
       end
       let(:match_regexp) { /\[.*\{.*id.*name.*\}.*\]/m }
+    end
+  end
+
+  describe '#settings' do
+    subject { UwsgiItClient::CLI.new }
+
+    let(:current_dir_settings) { double }
+    let(:home_settings)        { double }
+
+    context 'when no settings file is present' do
+      it 'returns an error hash' do
+        expect(subject.settings).to eq UwsgiItClient::ErrorHash.new
+      end
+    end
+
+    context 'when home dir settings are present' do
+      before { subject.stub home_settings: home_settings }
+
+      it 'loads home settings' do
+        expect(subject.settings).to eq home_settings
+      end
+    end
+
+    context 'when current dir settings are present' do
+      before { subject.stub current_dir_settings: current_dir_settings }
+
+      it 'loads current dir settings' do
+        expect(subject.settings).to eq current_dir_settings
+      end
+
+      context 'when home dir settings are present too' do
+        before { subject.stub home_settings: home_settings }
+
+        it 'still loads current dir settings' do
+          expect(subject.settings).to eq current_dir_settings
+        end
+      end
     end
   end
 end
