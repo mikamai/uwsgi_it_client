@@ -18,7 +18,22 @@ Or install it yourself as:
 
 ## Usage
 
-After install you can run it with the executable `uwsgi_client` or directly using the ruby API.
+After install you can run it with the CLI executable `uwsgi_client` or using the ruby API.
+
+### CLI interface
+CLI requires username, password and url to be provided inline with the command unless you provide
+a configuration file. You can create this file in the current directory or in your home directory.
+The file must be named `.uwsgi_it_client.yml` and should read like the following example:
+```yaml
+  username: kratos
+  password: deimos
+  url:      https://foobar.com/api
+```
+If both files exist (one in the home directory and one in the current directory) then the one in
+your current directory will have precedence.
+
+
+### Ruby API
 
 To use the API, create a `UwsgiItClient` instance with your account data:
 ```ruby
@@ -46,6 +61,9 @@ client.me
 ```bash
 # CLI
 uwsgi_client me -u=kratos -p=deimos -a=https://foobar.com/api
+
+# CLI with configuration file
+uwsgi_client me
 ```
 
 
